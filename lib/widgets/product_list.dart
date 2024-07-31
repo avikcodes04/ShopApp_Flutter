@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:shop_app_flutter/global_variable.dart';
 import'package:shop_app_flutter/widgets/product_card.dart';
 import 'package:shop_app_flutter/pages/product_details_page.dart';
@@ -22,8 +23,7 @@ class _ProductListState extends State<ProductList> {
   }
   @override
   Widget build(BuildContext context) {
-
-
+   
     const border = OutlineInputBorder(
       borderSide: BorderSide(color: Color.fromARGB(255, 191, 191, 191)),
       borderRadius: BorderRadius.horizontal(left: Radius.circular(50)),
@@ -85,34 +85,138 @@ class _ProductListState extends State<ProductList> {
                       ),
                     ),
                   );
+
                 },
               ),
             ),
-           Expanded(
-             child: ListView.builder(
-              itemCount: products.length,
-              itemBuilder: (context,index){
-                final product = products[index];
-                return  GestureDetector(
-                  onTap: (){
-                     Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context){
-                      return ProductDetailsPage(product: product);
-                     }));
-                  },
-                  child: ProductCard(
-                    title: product['title'] as String, 
-                    price: product['Price'] as double, 
-                    image: product['imageUrl'] as String,
-                    backgroundColor: index.isEven 
-                    ?const Color.fromARGB(255, 213, 255, 254)
-                    :const Color.fromARGB(162, 206, 206, 206), 
-                    ),
-                );
-              },
+
+    
+            Expanded(
+              child: LayoutBuilder(
+                builder: (context,constraints){
+                if(constraints.maxWidth>1080) {
+                  return 
+                  GridView.builder(
+                itemCount:products.length,
+               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+               
+                crossAxisCount: 2,
+                childAspectRatio: 1.5,
+               ),
+               itemBuilder: (context,index){
               
+                final product=products[index];
+                return  GestureDetector(
+                    onTap: (){
+                       Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context){
+                        return ProductDetailsPage(product: product);
+                       }));
+                    },
+                    child: ProductCard(
+                      title: product['title'] as String, 
+                      price: product['Price'] as double, 
+                      image: product['imageUrl'] as String,
+                      backgroundColor: index.isEven 
+                      ?const Color.fromARGB(255, 213, 255, 254)
+                      :const Color.fromARGB(162, 206, 206, 206), 
+                      ),
+                  );
+              
+              
+               }
+               )            ;
+              
+                }
+                else{
+                    return ListView.builder(
+                itemCount: products.length,
+                itemBuilder: (context,index){
+                  final product = products[index];
+                  return  GestureDetector(
+                    onTap: (){
+                       Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context){
+                        return ProductDetailsPage(product: product);
+                       }));
+                    },
+                    child: ProductCard(
+                      title: product['title'] as String, 
+                      price: product['Price'] as double, 
+                      image: product['imageUrl'] as String,
+                      backgroundColor: index.isEven 
+                      ?const Color.fromARGB(255, 213, 255, 254)
+                      :const Color.fromARGB(162, 206, 206, 206), 
+                      ),
+                  );
+                },
+                
+                );
+                  
+                }
+              
+                },
               ),
-           )
+            ),
+
+
+          //  Expanded(child:  
+            
+            //  GridView.builder(
+            //   itemCount:products.length,
+            //  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+             
+            //   crossAxisCount: 2,
+            //   childAspectRatio: 1.5,
+            //  ),
+            //  itemBuilder: (context,index){
+
+            //   final product=products[index];
+            //   return  GestureDetector(
+            //       onTap: (){
+            //          Navigator.of(context).push(
+            //           MaterialPageRoute(builder: (context){
+            //           return ProductDetailsPage(product: product);
+            //          }));
+            //       },
+            //       child: ProductCard(
+            //         title: product['title'] as String, 
+            //         price: product['Price'] as double, 
+            //         image: product['imageUrl'] as String,
+            //         backgroundColor: index.isEven 
+            //         ?const Color.fromARGB(255, 213, 255, 254)
+            //         :const Color.fromARGB(162, 206, 206, 206), 
+            //         ),
+            //     );
+
+
+            //  }
+            //  )            
+          
+            //  : ListView.builder(
+            //   itemCount: products.length,
+            //   itemBuilder: (context,index){
+            //     final product = products[index];
+            //     return  GestureDetector(
+            //       onTap: (){
+            //          Navigator.of(context).push(
+            //           MaterialPageRoute(builder: (context){
+            //           return ProductDetailsPage(product: product);
+            //          }));
+            //       },
+            //       child: ProductCard(
+            //         title: product['title'] as String, 
+            //         price: product['Price'] as double, 
+            //         image: product['imageUrl'] as String,
+            //         backgroundColor: index.isEven 
+            //         ?const Color.fromARGB(255, 213, 255, 254)
+            //         :const Color.fromARGB(162, 206, 206, 206), 
+            //         ),
+            //     );
+            //   },
+              
+            //   ),
+           //)
           ],
         ),
       );

@@ -148,7 +148,7 @@ void onTap(){
                         onPressed: onTap,
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Theme.of(context).colorScheme.primary,
-                          fixedSize: const Size(double.infinity, 50),
+                          fixedSize: const Size(350, 50),
                         )
                       ),
                     ),

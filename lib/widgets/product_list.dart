@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-//helloo
+
 import 'package:shop_app_flutter/global_variable.dart';
 import'package:shop_app_flutter/widgets/product_card.dart';
 import 'package:shop_app_flutter/pages/product_details_page.dart';
